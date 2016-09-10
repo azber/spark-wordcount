@@ -12,7 +12,7 @@ fun main(args: Array<String>) {
     val sc = JavaSparkContext(conf)
 
     val input = sc.textFile(inputFile)
-    val words = input.flatMap { it.split(" ") as MutableIterator<*>? }
+    val words = input.flatMap { it.split(" ").iterator() }
     val counts = words.mapToPair { Tuple2(it, 1) }.reduceByKey { x, y -> x + y }
     counts.saveAsTextFile(outputFile)
 }
